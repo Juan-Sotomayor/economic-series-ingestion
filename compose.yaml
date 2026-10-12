@@ -13,5 +13,14 @@ services:
       timeout: 5s
       retries: 10
 
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      SERIES_ID: "11"
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
   postgres_data:
